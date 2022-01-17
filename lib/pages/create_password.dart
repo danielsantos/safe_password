@@ -21,7 +21,11 @@ class CreatePasswordPage extends StatelessWidget {
           children: [
             Container(
               height: 350,
-              margin: const EdgeInsets.only(top: 140.0),
+              margin: EdgeInsets.only(
+                top: MediaQuery.of(context).viewInsets.bottom == 0.0
+                    ? 140.0
+                    : 14.0,
+              ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
