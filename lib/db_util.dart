@@ -60,6 +60,25 @@ class DbUtil {
     return _items[0];
   }
 
+  static Future<List<Pass>> getPassByTitle(String title) async {
+    final db = await DbUtil.database();
+    final dataList = await db.query(
+      'pass',
+      columns: ['id', 'title', 'pass', 'description'],
+      where: "title LIKE ?",
+      whereArgs: ['%$title%'],
+    );
+
+    return dataList.map((item) {
+      return Pass(
+        id: int.parse(item['id'].toString()),
+        title: item['title'].toString(),
+        pass: item['pass'].toString(),
+        description: item['description'].toString(),
+      );
+    }).toList();
+  }
+
   static Future<void> delete(int id) async {
     final db = await DbUtil.database();
     db.delete('pass', where: 'id = ?', whereArgs: [id]);

@@ -11,6 +11,30 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  TextEditingController controllerSearch = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _listFuture = updateAndGetList();
+  }
+
+  Future<List<Pass>> updateAndGetList({String title = ''}) async {
+    if (title == '') {
+      return await DbUtil.getData('pass');
+    } else {
+      return await DbUtil.getPassByTitle(title);
+    }
+  }
+
+  void refreshList(String title) {
+    setState(() {
+      _listFuture = updateAndGetList(title: title);
+    });
+  }
+
+  late Future<List<Pass>> _listFuture;
+
   showAlertDialog(int id, BuildContext context) {
     Widget cancelButton = TextButton(
       child: const Text("Cancelar"),
@@ -25,6 +49,7 @@ class _HomePageState extends State<HomePage> {
       onPressed: () {
         setState(() {
           DbUtil.delete(id);
+          refreshList('');
           Navigator.of(context).pop();
         });
       },
@@ -60,27 +85,9 @@ class _HomePageState extends State<HomePage> {
               padding: const EdgeInsets.all(8.0),
               child: TextField(
                 onChanged: (text) {
-                  /*setState(() {
-                    if (text.length == 0) {
-                      entries = [];
-                      entries.addAll(bkp);
-                    } else if (text.length == 1) {
-                      if (entries.length > bkp.length) {
-                        bkp = [];
-                        bkp.addAll(entries);
-                      }
-                      entries.removeWhere((element) => !element
-                          .toString()
-                          .toLowerCase()
-                          .contains(text.toLowerCase()));
-                    } else if (text.length > 1) {
-                      entries.removeWhere((element) => !element
-                          .toString()
-                          .toLowerCase()
-                          .contains(text.toLowerCase()));
-                    }
-                  });*/
+                  refreshList(text);
                 },
+                controller: controllerSearch,
                 decoration: InputDecoration(
                   prefixIcon: const Icon(Icons.search),
                   border: OutlineInputBorder(
@@ -96,7 +103,7 @@ class _HomePageState extends State<HomePage> {
           ),
           Expanded(
             child: FutureBuilder<List>(
-              future: DbUtil.getData('pass'),
+              future: _listFuture,
               //initialData: "Aguardando os dados...",
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
