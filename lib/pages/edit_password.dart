@@ -26,8 +26,8 @@ class EditPasswordPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Container(
-              height: 160,
-              margin: const EdgeInsets.only(top: 200.0),
+              height: 350,
+              margin: const EdgeInsets.only(top: 140.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -48,6 +48,7 @@ class EditPasswordPage extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: TextField(
+                      maxLines: 5,
                       controller: controllerDescription,
                       decoration: const InputDecoration(hintText: 'Descrição'),
                     ),
