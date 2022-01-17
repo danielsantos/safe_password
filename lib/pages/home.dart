@@ -106,7 +106,7 @@ class _HomePageState extends State<HomePage> {
               future: _listFuture,
               //initialData: "Aguardando os dados...",
               builder: (context, snapshot) {
-                if (snapshot.hasData) {
+                if (snapshot.data!.isNotEmpty) {
                   return ListView.builder(
                     itemCount: snapshot.data!.length,
                     itemBuilder: (context, index) {
@@ -140,7 +140,14 @@ class _HomePageState extends State<HomePage> {
                     },
                   );
                 } else {
-                  return const Center(child: CircularProgressIndicator());
+                  return const Center(
+                      child: Text(
+                    'Cadastre sua primeira senha!',
+                    style: TextStyle(
+                      color: Colors.blueGrey,
+                      fontSize: 25,
+                    ),
+                  ));
                 }
               },
             ),
