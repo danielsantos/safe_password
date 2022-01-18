@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
 import '../db_util.dart';
 
-class CreatePasswordPage extends StatelessWidget {
+class CreatePasswordPage extends StatefulWidget {
   CreatePasswordPage({Key? key}) : super(key: key);
 
+  @override
+  State<CreatePasswordPage> createState() => _CreatePasswordPageState();
+}
+
+class _CreatePasswordPageState extends State<CreatePasswordPage> {
   TextEditingController controllerTitle = TextEditingController();
   TextEditingController controllerPass = TextEditingController();
   TextEditingController controllerDescription = TextEditingController();
+
+  bool validFieldTitle = true;
+  bool validFieldPass = true;
 
   @override
   Widget build(BuildContext context) {
@@ -29,18 +37,64 @@ class CreatePasswordPage extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                  if (!validFieldPass || !validFieldTitle)
+                    const Text(
+                      'Preencha os campos obrigatórios',
+                      style: TextStyle(
+                        color: Colors.red,
+                        fontSize: 20.0,
+                      ),
+                    ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: TextField(
+                      onChanged: (text) {
+                        setState(() {
+                          if (text.isNotEmpty) {
+                            validFieldTitle = true;
+                          }
+                        });
+                      },
                       controller: controllerTitle,
-                      decoration: const InputDecoration(hintText: 'Título'),
+                      decoration: InputDecoration(
+                        hintText: 'Título *',
+                        hintStyle: TextStyle(
+                          fontSize: 20.0,
+                          color: validFieldTitle ? Colors.blueGrey : Colors.red,
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: validFieldTitle ? Colors.grey : Colors.red,
+                            width: 1.0,
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: TextField(
+                      onChanged: (text) {
+                        setState(() {
+                          if (text.isNotEmpty) {
+                            validFieldPass = true;
+                          }
+                        });
+                      },
                       controller: controllerPass,
-                      decoration: const InputDecoration(hintText: 'Senha'),
+                      decoration: InputDecoration(
+                        hintText: 'Senha *',
+                        hintStyle: TextStyle(
+                          fontSize: 20.0,
+                          color: validFieldPass ? Colors.blueGrey : Colors.red,
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: validFieldPass ? Colors.grey : Colors.red,
+                            width: 1.0,
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                   Padding(
@@ -48,7 +102,16 @@ class CreatePasswordPage extends StatelessWidget {
                     child: TextField(
                       maxLines: 5,
                       controller: controllerDescription,
-                      decoration: const InputDecoration(hintText: 'Descrição'),
+                      decoration: const InputDecoration(
+                        hintText: 'Descrição',
+                        hintStyle: TextStyle(
+                          fontSize: 20.0,
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide:
+                              BorderSide(color: Colors.grey, width: 1.0),
+                        ),
+                      ),
                     ),
                   ),
                 ],
@@ -68,12 +131,19 @@ class CreatePasswordPage extends StatelessWidget {
                     ),
                   ),
                   onPressed: () {
-                    DbUtil.insert('pass', {
-                      'title': controllerTitle.text,
-                      'pass': controllerPass.text,
-                      'description': controllerDescription.text
+                    setState(() {
+                      validFieldTitle = controllerTitle.text != '';
+                      validFieldPass = controllerPass.text != '';
+
+                      if (validFieldTitle && validFieldPass) {
+                        DbUtil.insert('pass', {
+                          'title': controllerTitle.text,
+                          'pass': controllerPass.text,
+                          'description': controllerDescription.text
+                        });
+                        Navigator.of(context).pushReplacementNamed('/home');
+                      }
                     });
-                    Navigator.of(context).pushReplacementNamed('/home');
                   },
                   child: const Text('SALVAR'),
                 ),

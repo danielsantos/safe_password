@@ -2,9 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:safe_password/models/pass.dart';
 import '../db_util.dart';
 
-class EditPasswordPage extends StatelessWidget {
+class EditPasswordPage extends StatefulWidget {
   EditPasswordPage({Key? key}) : super(key: key);
 
+  @override
+  State<EditPasswordPage> createState() => _EditPasswordPageState();
+}
+
+class _EditPasswordPageState extends State<EditPasswordPage> {
   TextEditingController controllerTitle = TextEditingController();
   TextEditingController controllerPass = TextEditingController();
   TextEditingController controllerDescription = TextEditingController();
@@ -18,7 +23,7 @@ class EditPasswordPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Editar Segura'),
+        title: const Text('Editar Senha'),
         centerTitle: true,
       ),
       body: Center(
@@ -39,14 +44,34 @@ class EditPasswordPage extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: TextField(
                       controller: controllerTitle,
-                      decoration: const InputDecoration(hintText: 'Título'),
+                      decoration: const InputDecoration(
+                        hintText: 'Título',
+                        hintStyle: TextStyle(
+                          fontSize: 20.0,
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            width: 1.0,
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: TextField(
                       controller: controllerPass,
-                      decoration: const InputDecoration(hintText: 'Senha'),
+                      decoration: const InputDecoration(
+                        hintText: 'Senha',
+                        hintStyle: TextStyle(
+                          fontSize: 20.0,
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            width: 1.0,
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                   Padding(
@@ -54,7 +79,16 @@ class EditPasswordPage extends StatelessWidget {
                     child: TextField(
                       maxLines: 5,
                       controller: controllerDescription,
-                      decoration: const InputDecoration(hintText: 'Descrição'),
+                      decoration: const InputDecoration(
+                        hintText: 'Descrição',
+                        hintStyle: TextStyle(
+                          fontSize: 20.0,
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide:
+                              BorderSide(color: Colors.grey, width: 1.0),
+                        ),
+                      ),
                     ),
                   ),
                 ],
@@ -75,7 +109,7 @@ class EditPasswordPage extends StatelessWidget {
                   ),
                   onPressed: () {
                     DbUtil.insert('pass', {
-                      'id': 1,
+                      'id': pass.id,
                       'title': controllerTitle.text,
                       'pass': controllerPass.text,
                       'description': controllerDescription.text
