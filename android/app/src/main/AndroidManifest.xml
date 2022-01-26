@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.safe_password">
+    package="com.danielrocha.safe_password">
    <application
         android:label="Senha Segura"
         android:icon="@mipmap/ic_launcher">
