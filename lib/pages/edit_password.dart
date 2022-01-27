@@ -141,9 +141,11 @@ class _EditPasswordPageState extends State<EditPasswordPage> {
                   ),
                   onPressed: () {
                     setState(() {
-                      pass.title = controllerTitle.text;
-                      pass.pass = controllerPass.text;
-                      pass.description = controllerDescription.text;
+                      if (pass != null) {
+                        pass.title = controllerTitle.text;
+                        pass.pass = controllerPass.text;
+                        pass.description = controllerDescription.text;
+                      }
 
                       validFieldTitle = controllerTitle.text != '';
                       validFieldPass = controllerPass.text != '';
@@ -163,7 +165,7 @@ class _EditPasswordPageState extends State<EditPasswordPage> {
                             'description': controllerDescription.text
                           });
                         }
-                        Navigator.of(context).pushReplacementNamed('/home');
+                        Navigator.of(context).pop();
                       }
                     });
                   },
