@@ -106,6 +106,10 @@ class _HomePageState extends State<HomePage> {
               future: _listFuture,
               initialData: [],
               builder: (context, snapshot) {
+                if (snapshot.connectionState != ConnectionState.done) {
+                  return Center(child: CircularProgressIndicator());
+                }
+
                 if (snapshot.data!.isNotEmpty) {
                   return ListView.builder(
                     itemCount: snapshot.data!.length,
