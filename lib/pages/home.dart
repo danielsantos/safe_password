@@ -104,7 +104,7 @@ class _HomePageState extends State<HomePage> {
           Expanded(
             child: FutureBuilder<List>(
               future: _listFuture,
-              //initialData: "Aguardando os dados...",
+              initialData: [],
               builder: (context, snapshot) {
                 if (snapshot.data!.isNotEmpty) {
                   return ListView.builder(
