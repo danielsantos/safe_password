@@ -45,6 +45,14 @@ class _EditPasswordPageState extends State<EditPasswordPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                  if (!validFieldPass || !validFieldTitle)
+                    const Text(
+                      'Preencha os campos obrigatórios',
+                      style: TextStyle(
+                        color: Colors.red,
+                        fontSize: 20.0,
+                      ),
+                    ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: TextField(
@@ -52,19 +60,19 @@ class _EditPasswordPageState extends State<EditPasswordPage> {
                       textCapitalization: TextCapitalization.sentences,
                       controller: controllerTitle,
                       onChanged: (text) {
-                        setState(() {
-                          if (text.isNotEmpty) {
-                            validFieldTitle = true;
-                          }
-                        });
+                        if (text.isNotEmpty) {
+                          validFieldTitle = true;
+                        }
                       },
-                      decoration: const InputDecoration(
-                        hintText: 'Título',
+                      decoration: InputDecoration(
+                        hintText: 'Título *',
                         hintStyle: TextStyle(
                           fontSize: 20.0,
+                          color: validFieldTitle ? Colors.blueGrey : Colors.red,
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(
+                            color: validFieldTitle ? Colors.grey : Colors.red,
                             width: 1.0,
                           ),
                         ),
@@ -76,19 +84,19 @@ class _EditPasswordPageState extends State<EditPasswordPage> {
                     child: TextField(
                       controller: controllerPass,
                       onChanged: (text) {
-                        setState(() {
-                          if (text.isNotEmpty) {
-                            validFieldPass = true;
-                          }
-                        });
+                        if (text.isNotEmpty) {
+                          validFieldPass = true;
+                        }
                       },
-                      decoration: const InputDecoration(
-                        hintText: 'Senha',
+                      decoration: InputDecoration(
+                        hintText: 'Senha *',
                         hintStyle: TextStyle(
                           fontSize: 20.0,
+                          color: validFieldPass ? Colors.blueGrey : Colors.red,
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(
+                            color: validFieldPass ? Colors.grey : Colors.red,
                             width: 1.0,
                           ),
                         ),
@@ -131,26 +139,28 @@ class _EditPasswordPageState extends State<EditPasswordPage> {
                     ),
                   ),
                   onPressed: () {
-                    validFieldTitle = controllerTitle.text != '';
-                    validFieldPass = controllerPass.text != '';
+                    setState(() {
+                      validFieldTitle = controllerTitle.text != '';
+                      validFieldPass = controllerPass.text != '';
 
-                    if (validFieldTitle && validFieldPass) {
-                      if (pass == null) {
-                        DbUtil.insert('pass', {
-                          'title': controllerTitle.text,
-                          'pass': controllerPass.text,
-                          'description': controllerDescription.text
-                        });
-                      } else {
-                        DbUtil.insert('pass', {
-                          'id': pass.id,
-                          'title': controllerTitle.text,
-                          'pass': controllerPass.text,
-                          'description': controllerDescription.text
-                        });
+                      if (validFieldTitle && validFieldPass) {
+                        if (pass == null) {
+                          DbUtil.insert('pass', {
+                            'title': controllerTitle.text,
+                            'pass': controllerPass.text,
+                            'description': controllerDescription.text
+                          });
+                        } else {
+                          DbUtil.insert('pass', {
+                            'id': pass.id,
+                            'title': controllerTitle.text,
+                            'pass': controllerPass.text,
+                            'description': controllerDescription.text
+                          });
+                        }
+                        Navigator.of(context).pushReplacementNamed('/home');
                       }
-                      Navigator.of(context).pushReplacementNamed('/home');
-                    }
+                    });
                   },
                   child: const Text('SALVAR'),
                 ),
