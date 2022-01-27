@@ -6,7 +6,7 @@ class Pass {
       this.description = ''});
 
   final int id;
-  final String title;
-  final String pass;
-  final String description;
+  String title;
+  String pass;
+  String description;
 }
