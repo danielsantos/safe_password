@@ -43,6 +43,8 @@ class _EditPasswordPageState extends State<EditPasswordPage> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: TextField(
+                      keyboardType: TextInputType.text,
+                      textCapitalization: TextCapitalization.sentences,
                       controller: controllerTitle,
                       decoration: const InputDecoration(
                         hintText: 'Título',
@@ -77,6 +79,8 @@ class _EditPasswordPageState extends State<EditPasswordPage> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: TextField(
+                      keyboardType: TextInputType.text,
+                      textCapitalization: TextCapitalization.sentences,
                       maxLines: 5,
                       controller: controllerDescription,
                       decoration: const InputDecoration(

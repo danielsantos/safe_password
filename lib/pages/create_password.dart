@@ -48,6 +48,8 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: TextField(
+                      keyboardType: TextInputType.text,
+                      textCapitalization: TextCapitalization.sentences,
                       onChanged: (text) {
                         setState(() {
                           if (text.isNotEmpty) {
@@ -100,6 +102,8 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: TextField(
+                      keyboardType: TextInputType.text,
+                      textCapitalization: TextCapitalization.sentences,
                       maxLines: 5,
                       controller: controllerDescription,
                       decoration: const InputDecoration(
