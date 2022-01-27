@@ -14,16 +14,21 @@ class _EditPasswordPageState extends State<EditPasswordPage> {
   TextEditingController controllerPass = TextEditingController();
   TextEditingController controllerDescription = TextEditingController();
 
+  bool validFieldTitle = true;
+  bool validFieldPass = true;
+
   @override
   Widget build(BuildContext context) {
     Pass pass = ModalRoute.of(context)!.settings.arguments as Pass;
-    controllerTitle.text = pass.title;
-    controllerPass.text = pass.pass;
-    controllerDescription.text = pass.description;
+    if (pass != null) {
+      controllerTitle.text = pass.title;
+      controllerPass.text = pass.pass;
+      controllerDescription.text = pass.description;
+    }
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Editar Senha'),
+        title: Text(pass == null ? 'Cadastrar Senha' : 'Editar Senha'),
         centerTitle: true,
       ),
       body: Center(
@@ -46,6 +51,13 @@ class _EditPasswordPageState extends State<EditPasswordPage> {
                       keyboardType: TextInputType.text,
                       textCapitalization: TextCapitalization.sentences,
                       controller: controllerTitle,
+                      onChanged: (text) {
+                        setState(() {
+                          if (text.isNotEmpty) {
+                            validFieldTitle = true;
+                          }
+                        });
+                      },
                       decoration: const InputDecoration(
                         hintText: 'Título',
                         hintStyle: TextStyle(
@@ -63,6 +75,13 @@ class _EditPasswordPageState extends State<EditPasswordPage> {
                     padding: const EdgeInsets.all(8.0),
                     child: TextField(
                       controller: controllerPass,
+                      onChanged: (text) {
+                        setState(() {
+                          if (text.isNotEmpty) {
+                            validFieldPass = true;
+                          }
+                        });
+                      },
                       decoration: const InputDecoration(
                         hintText: 'Senha',
                         hintStyle: TextStyle(
@@ -112,13 +131,26 @@ class _EditPasswordPageState extends State<EditPasswordPage> {
                     ),
                   ),
                   onPressed: () {
-                    DbUtil.insert('pass', {
-                      'id': pass.id,
-                      'title': controllerTitle.text,
-                      'pass': controllerPass.text,
-                      'description': controllerDescription.text
-                    });
-                    Navigator.of(context).pushReplacementNamed('/home');
+                    validFieldTitle = controllerTitle.text != '';
+                    validFieldPass = controllerPass.text != '';
+
+                    if (validFieldTitle && validFieldPass) {
+                      if (pass == null) {
+                        DbUtil.insert('pass', {
+                          'title': controllerTitle.text,
+                          'pass': controllerPass.text,
+                          'description': controllerDescription.text
+                        });
+                      } else {
+                        DbUtil.insert('pass', {
+                          'id': pass.id,
+                          'title': controllerTitle.text,
+                          'pass': controllerPass.text,
+                          'description': controllerDescription.text
+                        });
+                      }
+                      Navigator.of(context).pushReplacementNamed('/home');
+                    }
                   },
                   child: const Text('SALVAR'),
                 ),

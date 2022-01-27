@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:safe_password/pages/create_password.dart';
 import 'package:safe_password/pages/edit_password.dart';
 import 'package:safe_password/pages/home.dart';
 import 'package:splashscreen/splashscreen.dart';
@@ -19,7 +18,6 @@ class MyApp extends StatelessWidget {
       home: MyHomePage(title: 'Splash Screen Flutter'),
       routes: {
         '/home': (ctx) => const HomePage(),
-        '/create': (ctx) => CreatePasswordPage(),
         '/edit': (ctx) => EditPasswordPage()
       },
     );

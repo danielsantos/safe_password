@@ -166,7 +166,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 onPressed: () {
-                  Navigator.of(context).pushNamed('/create');
+                  Navigator.of(context).pushNamed('/edit');
                 },
                 child: const Text('ADICIONAR'),
               ),
