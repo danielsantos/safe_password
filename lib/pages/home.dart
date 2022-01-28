@@ -144,14 +144,17 @@ class _HomePageState extends State<HomePage> {
                     },
                   );
                 } else {
-                  return const Center(
-                      child: Text(
-                    'Cadastre sua primeira senha!',
-                    style: TextStyle(
-                      color: Colors.blueGrey,
-                      fontSize: 25,
+                  return Center(
+                    child: Text(
+                      controllerSearch.text.isEmpty
+                          ? 'Cadastre sua primeira senha!'
+                          : 'Nenhuma senha encontrada',
+                      style: TextStyle(
+                        color: Colors.blueGrey,
+                        fontSize: 23,
+                      ),
                     ),
-                  ));
+                  );
                 }
               },
             ),
