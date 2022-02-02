@@ -122,7 +122,12 @@ class _HomePageState extends State<HomePage> {
                                 snapshot.data![index].id);
 
                             Navigator.of(context)
-                                .pushNamed('/edit', arguments: pass);
+                                .pushNamed('/edit', arguments: pass)
+                                .then((_) {
+                              setState(() {
+                                _listFuture = updateAndGetList();
+                              });
+                            });
                           },
                           child: Card(
                             color: Colors.grey[200],

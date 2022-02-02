@@ -19,6 +19,8 @@ class _EditPasswordPageState extends State<EditPasswordPage> {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+
     Pass pass = ModalRoute.of(context)!.settings.arguments as Pass;
     if (pass != null) {
       controllerTitle.text = pass.title;
@@ -65,15 +67,28 @@ class _EditPasswordPageState extends State<EditPasswordPage> {
                         }
                       },
                       decoration: InputDecoration(
-                        hintText: 'Título *',
-                        hintStyle: TextStyle(
+                        labelText: 'Título *',
+                        labelStyle: TextStyle(
                           fontSize: 20.0,
                           color: validFieldTitle ? Colors.blueGrey : Colors.red,
                         ),
+                        contentPadding: EdgeInsets.only(
+                            left: width * 0.04,
+                            top: width * 0.041,
+                            bottom: width * 0.041,
+                            right: width * 0.04),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(width * 0.04),
+                          borderSide: BorderSide(
+                            color: Colors.grey,
+                            width: 2.0,
+                          ),
+                        ),
                         enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(width * 0.04),
                           borderSide: BorderSide(
                             color: validFieldTitle ? Colors.grey : Colors.red,
-                            width: 1.0,
+                            width: 2.0,
                           ),
                         ),
                       ),
@@ -89,15 +104,28 @@ class _EditPasswordPageState extends State<EditPasswordPage> {
                         }
                       },
                       decoration: InputDecoration(
-                        hintText: 'Senha *',
-                        hintStyle: TextStyle(
+                        labelText: 'Senha *',
+                        labelStyle: TextStyle(
                           fontSize: 20.0,
                           color: validFieldPass ? Colors.blueGrey : Colors.red,
                         ),
+                        contentPadding: EdgeInsets.only(
+                            left: width * 0.04,
+                            top: width * 0.041,
+                            bottom: width * 0.041,
+                            right: width * 0.04),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(width * 0.04),
+                          borderSide: BorderSide(
+                            color: Colors.grey,
+                            width: 2.0,
+                          ),
+                        ),
                         enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(width * 0.04),
                           borderSide: BorderSide(
                             color: validFieldPass ? Colors.grey : Colors.red,
-                            width: 1.0,
+                            width: 2.0,
                           ),
                         ),
                       ),
@@ -110,14 +138,29 @@ class _EditPasswordPageState extends State<EditPasswordPage> {
                       textCapitalization: TextCapitalization.sentences,
                       maxLines: 5,
                       controller: controllerDescription,
-                      decoration: const InputDecoration(
-                        hintText: 'Descrição',
-                        hintStyle: TextStyle(
+                      decoration: InputDecoration(
+                        labelText: 'Descrição',
+                        labelStyle: TextStyle(
                           fontSize: 20.0,
                         ),
+                        contentPadding: EdgeInsets.only(
+                            left: width * 0.04,
+                            top: width * 0.041,
+                            bottom: width * 0.041,
+                            right: width * 0.04),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(width * 0.04),
+                          borderSide: BorderSide(
+                            color: Colors.grey,
+                            width: 2.0,
+                          ),
+                        ),
                         enabledBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: Colors.grey, width: 1.0),
+                          borderRadius: BorderRadius.circular(width * 0.04),
+                          borderSide: BorderSide(
+                            color: Colors.grey,
+                            width: 2.0,
+                          ),
                         ),
                       ),
                     ),
