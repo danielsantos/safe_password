@@ -63,7 +63,6 @@ class _EditPasswordPageState extends State<EditPasswordPage> {
                         if (text.isNotEmpty) {
                           validFieldTitle = true;
                         }
-                        print(controllerTitle.text);
                       },
                       decoration: InputDecoration(
                         hintText: 'Título *',

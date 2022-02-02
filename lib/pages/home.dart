@@ -173,7 +173,11 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 onPressed: () {
-                  Navigator.of(context).pushNamed('/edit');
+                  Navigator.of(context).pushNamed('/edit').then((_) {
+                    setState(() {
+                      _listFuture = updateAndGetList();
+                    });
+                  });
                 },
                 child: const Text('ADICIONAR'),
               ),
