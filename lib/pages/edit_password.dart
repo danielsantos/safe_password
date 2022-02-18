@@ -38,12 +38,7 @@ class _EditPasswordPageState extends State<EditPasswordPage> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Container(
-              height: 350,
-              margin: EdgeInsets.only(
-                top: MediaQuery.of(context).viewInsets.bottom == 0.0
-                    ? 140.0
-                    : 14.0,
-              ),
+              height: 300,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
