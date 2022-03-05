@@ -50,6 +50,9 @@ class _EditPasswordPageState extends State<EditPasswordPage> {
                         fontSize: 20.0,
                       ),
                     ),
+                  SizedBox(
+                    height: 5,
+                  ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: TextField(
