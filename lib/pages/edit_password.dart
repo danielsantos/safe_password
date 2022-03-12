@@ -1,3 +1,4 @@
+import 'package:admob_flutter/admob_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:safe_password/models/pass.dart';
 import '../db_util.dart';
@@ -16,6 +17,13 @@ class _EditPasswordPageState extends State<EditPasswordPage> {
 
   bool validFieldTitle = true;
   bool validFieldPass = true;
+  late AdmobBannerSize bannerSize;
+
+  @override
+  void initState() {
+    super.initState();
+    bannerSize = AdmobBannerSize.BANNER;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -166,6 +174,9 @@ class _EditPasswordPageState extends State<EditPasswordPage> {
                 ],
               ),
             ),
+            Container(
+              child: getBanner(AdmobBannerSize.MEDIUM_RECTANGLE),
+            ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: SizedBox(
@@ -216,6 +227,13 @@ class _EditPasswordPageState extends State<EditPasswordPage> {
           ],
         ),
       ),
+    );
+  }
+
+  AdmobBanner getBanner(AdmobBannerSize size) {
+    return AdmobBanner(
+      adUnitId: 'ca-app-pub-3992962658517532/8458488721',
+      adSize: size,
     );
   }
 }

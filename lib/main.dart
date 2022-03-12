@@ -1,9 +1,21 @@
+import 'package:admob_flutter/admob_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:safe_password/pages/edit_password.dart';
 import 'package:safe_password/pages/home.dart';
 import 'package:splashscreen/splashscreen.dart';
 
-void main() => runApp(const MyApp());
+void main() {
+  List<String> ids = [];
+  ids.add(getAppId());
+
+  Admob.initialize(testDeviceIds: ids);
+
+  runApp(const MyApp());
+}
+
+String getAppId() {
+  return 'ca-app-pub-3992962658517532/6821568800';
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
